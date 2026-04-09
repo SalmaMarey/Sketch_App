@@ -1,45 +1,98 @@
-# Miscellaneous
+# Misc
 *.class
 *.log
 *.pyc
 *.swp
 .DS_Store
-.atom/
-.build/
-.buildlog/
-.history
-.svn/
-.swiftpm/
-migrate_working_dir/
-
-# IntelliJ related
+.idea/
+.vscode/
 *.iml
+
+# Flutter/Dart/Pub
+.dart_tool/
+.packages
+.pub/
+build/
+pubspec.lock
+
+# Flutter Generated
+.flutter-plugins
+.flutter-plugins-dependencies
+.metadata
+
+# Coverage
+coverage/
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+android/key.properties
+*.keystore
+*.jks
+
+# iOS
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/Generated.xcconfig
+ios/Flutter/app.flx
+ios/Flutter/app.zip
+ios/Flutter/flutter_assets/
+ios/ServiceDefinitions.json
+ios/Runner/GeneratedPluginRegistrant.*
+ios/Pods/
+ios/.symlinks/
+ios/DerivedData/
+ios/.generated/
+ios/Runner.xcworkspace/
+
+# macOS
+macos/Flutter/Flutter.framework
+macos/Flutter/GeneratedPluginRegistrant.swift
+macos/Pods/
+macos/DerivedData/
+macos/.symlinks/
+
+# Web
+build/web/
+web/.dart_tool/
+
+# Windows
+windows/flutter/ephemeral/
+windows/build/
+
+# Linux
+linux/flutter/ephemeral/
+linux/build/
+
+# Firebase / Secrets
+google-services.json
+GoogleService-Info.plist
+firebase_app_id_file.json
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# IntelliJ / Android Studio
 *.ipr
 *.iws
-.idea/
 
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
+# VS Code
+.history/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
-/coverage/
+# Env files
+.env
+.env.*
 
-# Symbolication related
+# Crashlytics
+crashlytics-build.properties
+
+# Symbols
 app.*.symbols
 
-# Obfuscation related
+# Obfuscation
 app.*.map.json
-
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
