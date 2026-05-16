@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:sketch_app/features/gallery/widgets/drawer_bar.dart';
 import 'package:sketch_app/features/gallery/widgets/portfolio_button.dart';
@@ -13,18 +11,68 @@ class GalleryScreen extends StatefulWidget {
 }
 
 class _GalleryScreenState extends State<GalleryScreen> {
-  final ScrollController _scrollController = ScrollController();
-  bool showHero = true;
+  final PageController _pageController = PageController();
+  final ScrollController _projectsScrollController = ScrollController();
 
-  void scrollToProjects() {
-    _scrollController.animateTo(
-      700,
+  int _currentPage = 0;
+  bool _isAnimatingPage = false;
+
+  Future<void> scrollToProjects() async {
+    if (_isAnimatingPage || _currentPage == 1) {
+      return;
+    }
+
+    _isAnimatingPage = true;
+    await _pageController.animateToPage(
+      1,
       duration: const Duration(milliseconds: 800),
       curve: Curves.easeInOut,
     );
-    setState(() {
-      showHero = false;
-    });
+    _isAnimatingPage = false;
+  }
+
+  Future<void> _scrollToHero() async {
+    if (_isAnimatingPage || _currentPage == 0) {
+      return;
+    }
+
+    _isAnimatingPage = true;
+    await _pageController.animateToPage(
+      0,
+      duration: const Duration(milliseconds: 600),
+      curve: Curves.easeOutCubic,
+    );
+    _isAnimatingPage = false;
+  }
+
+  bool _handleProjectsScrollNotification(ScrollNotification notification) {
+    if (_currentPage != 1 || _isAnimatingPage) {
+      return false;
+    }
+
+    final metrics = notification.metrics;
+    final isAtTop = metrics.pixels <= metrics.minScrollExtent;
+
+    if (notification is OverscrollNotification &&
+        isAtTop &&
+        notification.overscroll < 0) {
+      _scrollToHero();
+    }
+
+    if (notification is ScrollUpdateNotification &&
+        isAtTop &&
+        (notification.scrollDelta ?? 0) < 0) {
+      _scrollToHero();
+    }
+
+    return false;
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _projectsScrollController.dispose();
+    super.dispose();
   }
 
   @override
@@ -52,26 +100,57 @@ class _GalleryScreenState extends State<GalleryScreen> {
           ),
         ],
       ),
+      body: PageView(
+        controller: _pageController,
+        scrollDirection: Axis.vertical,
+        physics: _currentPage == 0
+            ? const BouncingScrollPhysics()
+            : const NeverScrollableScrollPhysics(),
+        onPageChanged: (page) {
+          setState(() {
+            _currentPage = page;
+          });
+        },
+        children: [
+          _HeroSection(onPortfolioPressed: scrollToProjects),
+          ProjectsSection(
+            scrollController: _projectsScrollController,
+            onScrollNotification: _handleProjectsScrollNotification,
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Column(
-          children: [
-            //sec1
-            // if (showHero)
-            Stack(
-              children: [
-                Image.asset(
-                  'assets/images/home_1.png',
-                  height: 800,
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
+class _HeroSection extends StatelessWidget {
+  const _HeroSection({required this.onPortfolioPressed});
 
-                Positioned(
-                  bottom: 265,
-                  left: 20,
+  final VoidCallback onPortfolioPressed;
+
+  @override
+  Widget build(BuildContext context) {
+    final mediaQuery = MediaQuery.of(context);
+
+    return SizedBox.expand(
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset('assets/images/home_1.png', fit: BoxFit.cover),
+          SafeArea(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(
+                20,
+                20,
+                20,
+                mediaQuery.padding.bottom + 41,
+              ),
+              child: Align(
+                alignment: Alignment.bottomLeft,
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 420),
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ShaderMask(
@@ -90,11 +169,11 @@ class _GalleryScreenState extends State<GalleryScreen> {
                         ),
                       ),
                       const SizedBox(height: 10),
-                      Text(
+                      const Text(
                         'Where ideas come to life\n'
                         'Explore our work and start your\n'
                         'creative journey today.',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
                           height: 1.5,
@@ -102,17 +181,14 @@ class _GalleryScreenState extends State<GalleryScreen> {
                         ),
                       ),
                       const SizedBox(height: 24),
-                      PortfolioButton(onPressed: scrollToProjects),
+                      PortfolioButton(onPressed: onPortfolioPressed),
                     ],
                   ),
                 ),
-              ],
+              ),
             ),
-
-            //sec2
-            const ProjectsSection(),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
