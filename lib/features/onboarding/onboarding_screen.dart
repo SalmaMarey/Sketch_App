@@ -37,7 +37,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
 
   void _onTapUp(TapUpDetails details) {
     _animationController.reverse();
-    Navigator.pushReplacementNamed(context, '/home');
+    Navigator.pushReplacementNamed(context, '/layout');
   }
 
   void _onTapCancel() {

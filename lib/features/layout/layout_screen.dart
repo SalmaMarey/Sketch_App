@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../gallery/gallery_screen.dart';
-import '../book/book_screen.dart';
+import 'package:sketch_app/core/widgets/custom_divider.dart';
+import '../gallery/screens/gallery_screen.dart';
+import '../book/screens/book_screen.dart';
 import '../designs/designs_screen.dart';
 
 class LayoutScreen extends StatefulWidget {
@@ -32,21 +33,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              height: 1.0,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    const Color(0xFFFFFFFF).withOpacity(0.10),
-                    const Color(0xFFD3A14A),
-                    const Color(0xFFFFFFFF).withOpacity(0.10),
-                  ],
-                  stops: const [0.0, 0.5, 1.0],
-                ),
-              ),
-            ),
+            CustomDivider(),
+
             BottomNavigationBar(
               backgroundColor: Colors.black,
               currentIndex: _currentIndex,

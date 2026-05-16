@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Navigate to HomeScreen after 10 seconds
     Timer(const Duration(seconds: 2), () {
       if (mounted) {
-        Navigator.pushReplacementNamed(context, '/onBoarding');
+        Navigator.pushReplacementNamed(context, '/layout');
       }
     });
   }
