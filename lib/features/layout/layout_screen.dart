@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
 import '../gallery/screens/gallery_screen.dart';
 import '../book/screens/book_screen.dart';
@@ -66,8 +67,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            width: 20,
-            height: 20,
+            width: 20.w,
+            height: 20.w,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               gradient: isSelected
@@ -79,7 +80,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                     ),
             ),
           ),
-          const SizedBox(height: 6),
+          SizedBox(height: 6.h),
           isSelected
               ? ShaderMask(
                   blendMode: BlendMode.srcIn,
@@ -88,8 +89,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
                   ).createShader(bounds),
                   child: Text(
                     label,
-                    style: const TextStyle(
-                      fontSize: 20,
+                    style: TextStyle(
+                      fontSize: 20.sp,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
                     ),
@@ -97,8 +98,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
                 )
               : Text(
                   label,
-                  style: const TextStyle(
-                    fontSize: 20,
+                  style: TextStyle(
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.2,
                     color: Color(0xFF9E9E9E),

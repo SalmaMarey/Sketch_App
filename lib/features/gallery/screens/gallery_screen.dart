@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sketch_app/features/gallery/widgets/drawer_bar.dart';
 import 'package:sketch_app/features/gallery/widgets/portfolio_button.dart';
 import 'package:sketch_app/features/gallery/widgets/projects_section.dart';
@@ -140,15 +141,15 @@ class _HeroSection extends StatelessWidget {
           SafeArea(
             child: Padding(
               padding: EdgeInsets.fromLTRB(
-                20,
-                20,
-                20,
-                mediaQuery.padding.bottom + 41,
+                20.w,
+                20.h,
+                20.w,
+                mediaQuery.padding.bottom + 41.h,
               ),
               child: Align(
                 alignment: Alignment.bottomLeft,
                 child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 420),
+                  constraints: BoxConstraints(maxWidth: 420.w),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -158,29 +159,29 @@ class _HeroSection extends StatelessWidget {
                           colors: [Color(0xFFD3A14A), Color(0xFFFFEFD9)],
                           stops: [0.11, 0.94],
                         ).createShader(bounds),
-                        child: const Text(
+                        child: Text(
                           'SKETCH COMPANY',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 36,
+                            fontSize: 36.sp,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1.2,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 10),
-                      const Text(
+                      SizedBox(height: 10.h),
+                      Text(
                         'Where ideas come to life\n'
                         'Explore our work and start your\n'
                         'creative journey today.',
                         style: TextStyle(
                           color: Colors.white,
-                          fontSize: 20,
+                          fontSize: 20.sp,
                           height: 1.5,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      const SizedBox(height: 24),
+                      SizedBox(height: 24.h),
                       PortfolioButton(onPressed: onPortfolioPressed),
                     ],
                   ),

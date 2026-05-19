@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/routing/app_routes.dart';
 import 'dart:ui';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -37,7 +39,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
 
   void _onTapUp(TapUpDetails details) {
     _animationController.reverse();
-    Navigator.pushReplacementNamed(context, '/layout');
+    Navigator.pushReplacementNamed(context, AppRoutes.layout);
   }
 
   void _onTapCancel() {
@@ -62,7 +64,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 29.0, left: 32, right: 32),
+              padding: EdgeInsets.only(
+                bottom: 29.h,
+                left: 32.w,
+                right: 32.w,
+              ),
               child: GestureDetector(
                 onTapDown: _onTapDown,
                 onTapUp: _onTapUp,
@@ -74,14 +80,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     child: child,
                   ),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30),
+                    borderRadius: BorderRadius.circular(30.r),
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                       child: Container(
-                        height: 60,
-                        width: 213,
+                        height: 60.h,
+                        width: 213.w,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(30.r),
                           gradient: LinearGradient(
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
@@ -113,10 +119,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                               ).createShader(bounds),
                               child: Container(
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(26),
+                                  borderRadius: BorderRadius.circular(26.r),
                                   border: Border.all(
                                     color: Colors.white,
-                                    width: 1.5,
+                                    width: 1.5.w,
                                   ),
                                 ),
                               ),
@@ -132,10 +138,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                   Color(0xFFD3A14A),
                                 ],
                               ).createShader(bounds),
-                              child: const Text(
+                              child: Text(
                                 'GET STARTED',
                                 style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 20.sp,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                   letterSpacing: 1.2,

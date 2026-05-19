@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sketch_app/core/routing/app_routes.dart';
 import 'dart:async';
 
 class SplashScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // Navigate to HomeScreen after 10 seconds
     Timer(const Duration(seconds: 2), () {
       if (mounted) {
-        Navigator.pushReplacementNamed(context, '/layout');
+        Navigator.pushReplacementNamed(context, AppRoutes.layout);
       }
     });
   }
