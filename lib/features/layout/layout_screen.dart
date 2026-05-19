@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
 import '../gallery/screens/gallery_screen.dart';
 import '../book/screens/book_screen.dart';
-import '../designs/designs_screen.dart';
+import '../designs/screens/designs_screen.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -15,21 +17,31 @@ class LayoutScreen extends StatefulWidget {
 class _LayoutScreenState extends State<LayoutScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = [
-    const GalleryScreen(),
+  late final List<Widget> _screens = [
+    GalleryScreen(onSelectTab: _navigateToTab),
     const BookScreen(),
     const DesignsScreen(),
   ];
 
+  void _navigateToTab(int index) {
+    if (!mounted || _currentIndex == index) {
+      return;
+    }
+
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: _screens[_currentIndex],
+      backgroundColor: AppColors.darkBackground,
+      body: IndexedStack(index: _currentIndex, children: _screens),
       bottomNavigationBar: Theme(
         data: Theme.of(context).copyWith(
-          splashColor: Colors.transparent,
-          highlightColor: Colors.transparent,
+          splashColor: AppColors.transparent,
+          highlightColor: AppColors.transparent,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -37,13 +49,9 @@ class _LayoutScreenState extends State<LayoutScreen> {
             CustomDivider(),
 
             BottomNavigationBar(
-              backgroundColor: Colors.black,
+              backgroundColor: AppColors.darkBackground,
               currentIndex: _currentIndex,
-              onTap: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
+              onTap: _navigateToTab,
               type: BottomNavigationBarType.fixed,
               showSelectedLabels: false,
               showUnselectedLabels: false,
@@ -73,10 +81,13 @@ class _LayoutScreenState extends State<LayoutScreen> {
               shape: BoxShape.circle,
               gradient: isSelected
                   ? const LinearGradient(
-                      colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+                      colors: [AppColors.lightGold, AppColors.primaryGold],
                     )
                   : const LinearGradient(
-                      colors: [Color(0xFF4A4440), Color(0xFFB0A197)],
+                      colors: [
+                        AppColors.grayGradientStart,
+                        AppColors.grayGradientEnd,
+                      ],
                     ),
             ),
           ),
@@ -85,25 +96,16 @@ class _LayoutScreenState extends State<LayoutScreen> {
               ? ShaderMask(
                   blendMode: BlendMode.srcIn,
                   shaderCallback: (bounds) => const LinearGradient(
-                    colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+                    colors: [AppColors.lightGold, AppColors.primaryGold],
                   ).createShader(bounds),
                   child: Text(
                     label,
-                    style: TextStyle(
-                      fontSize: 20.sp,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1.2,
-                    ),
+                    style: AppTextStyles.navLabel.copyWith(color: null),
                   ),
                 )
               : Text(
                   label,
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 1.2,
-                    color: Color(0xFF9E9E9E),
-                  ),
+                  style: AppTextStyles.navLabel,
                 ),
         ],
       ),

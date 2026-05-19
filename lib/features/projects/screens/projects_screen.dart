@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
 import 'package:sketch_app/core/widgets/gold_back_button.dart';
 import 'package:sketch_app/features/projects/widgets/project_card_theme.dart';
@@ -10,7 +12,7 @@ class ProjectsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.darkBackground,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -25,24 +27,19 @@ class ProjectsScreen extends StatelessWidget {
                     SizedBox(width: 54.w),
                     ShaderMask(
                       shaderCallback: (bounds) => const LinearGradient(
-                        colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+                        colors: [AppColors.lightGold, AppColors.primaryGold],
                         stops: [0.53, 1.0],
                       ).createShader(bounds),
 
                       child: Text(
                         'PROJECTS',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32.sp,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.6,
-                        ),
+                        style: AppTextStyles.screenTitle,
                       ),
                     ),
                   ],
                 ),
                 SizedBox(height: 17.h),
-                CustomDivider(),
+                const CustomDivider(),
                 SizedBox(height: 28.h),
 
                 GridView.builder(

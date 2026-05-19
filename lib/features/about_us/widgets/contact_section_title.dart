@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 
 class ContactSectionTitle extends StatelessWidget {
   const ContactSectionTitle(this.title, {super.key});
@@ -12,15 +14,11 @@ class ContactSectionTitle extends StatelessWidget {
       shaderCallback: (bounds) => const LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: [Color(0xFFF6D7A6), Color(0xFFD3A14A)],
+        colors: [AppColors.softGold, AppColors.primaryGold],
       ).createShader(bounds),
       child: Text(
         title,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20.sp,
-          fontWeight: FontWeight.bold,
-        ),
+        style: AppTextStyles.contactTitle,
       ),
     );
   }

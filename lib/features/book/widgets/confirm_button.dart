@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 
 class ConfirmButton extends StatelessWidget {
-  static const _gold = Color(0xFFD3A14A);
-  static const _lightGold = Color(0xFFFADDB3);
-
   const ConfirmButton({super.key});
 
   @override
@@ -19,13 +18,13 @@ class ConfirmButton extends StatelessWidget {
             borderRadius: borderRadius,
             boxShadow: [
               BoxShadow(
-                color: Colors.white.withOpacity(0.18),
+                color: AppColors.white.withOpacity(0.18),
                 blurRadius: 4.r,
                 spreadRadius: -1,
                 offset: Offset(0, -1.h),
               ),
               BoxShadow(
-                color: _gold.withOpacity(0.42),
+                color: AppColors.primaryGold.withOpacity(0.42),
                 blurRadius: 12.r,
                 spreadRadius: -3,
                 offset: Offset(0, 5.h),
@@ -34,7 +33,11 @@ class ConfirmButton extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [Color(0x26FFFFFF), Color(0xFFD3A14A), Color(0x26FFFFFF)],
+              colors: [
+                AppColors.white15,
+                AppColors.primaryGold,
+                AppColors.white15,
+              ],
               stops: [0, 0.55, 1],
             ),
           ),
@@ -47,23 +50,18 @@ class ConfirmButton extends StatelessWidget {
               gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color(0xFF050505), Color(0xFF000000)],
+                colors: [AppColors.richBlack, AppColors.deepBlack],
               ),
             ),
             child: Center(
               child: ShaderMask(
                 shaderCallback: (bounds) => const LinearGradient(
-                  colors: [_lightGold, _gold],
+                  colors: [AppColors.lightGold, AppColors.primaryGold],
                   stops: [0.15, 1],
                 ).createShader(bounds),
                 child: Text(
                   'CONFIRM',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w500,
-                    letterSpacing: 1,
-                  ),
+                  style: AppTextStyles.buttonText,
                 ),
               ),
             ),

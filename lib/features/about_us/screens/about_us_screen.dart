@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
 import 'package:sketch_app/core/widgets/gold_back_button.dart';
 import 'package:sketch_app/features/about_us/data/models/member_data.dart';
@@ -29,7 +31,7 @@ class AboutUsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.darkBackground,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -45,17 +47,12 @@ class AboutUsScreen extends StatelessWidget {
                     SizedBox(width: 54.w),
                     ShaderMask(
                       shaderCallback: (bounds) => const LinearGradient(
-                        colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+                        colors: [AppColors.lightGold, AppColors.primaryGold],
                         stops: [0.53, 1.0],
                       ).createShader(bounds),
                       child: Text(
                         'ABOUT US',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32.sp,
-                          fontWeight: FontWeight.w600,
-                          letterSpacing: 0.6,
-                        ),
+                        style: AppTextStyles.screenTitle,
                       ),
                     ),
                   ],
@@ -69,7 +66,7 @@ class AboutUsScreen extends StatelessWidget {
                   'into reality through high-quality construction, precise\n'
                   'execution, and full commitment to deadlines and client\n'
                   'satisfaction.',
-                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                  style: AppTextStyles.bodyText,
                 ),
                 SizedBox(height: 18.h),
                 Center(
@@ -78,22 +75,14 @@ class AboutUsScreen extends StatelessWidget {
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
                       colors: [
-                        Color(0xFFF6D7A6),
-                        Color(0xFFD3A14A),
-                        Color(0xFFF6D7A6),
+                        AppColors.softGold,
+                        AppColors.primaryGold,
+                        AppColors.softGold,
                       ],
                     ).createShader(bounds),
                     child: Text(
                       'OUR MEMBERS',
-                      style: TextStyle(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 4.sp,
-                        foreground: Paint()
-                          ..color = Colors.white
-                          ..style = PaintingStyle.stroke
-                          ..strokeWidth = 1.4,
-                      ),
+                      style: AppTextStyles.outlinedGoldText,
                     ),
                   ),
                 ),
@@ -110,33 +99,21 @@ class AboutUsScreen extends StatelessWidget {
                 Text(
                   'Burj Al Jawhari Al Jadeed, Belqas, Oulad Omar\n'
                   'Square, Mansoura, Egypt',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.sp,
-                    height: 1.65,
-                  ),
+                  style: AppTextStyles.bodyText.copyWith(height: 1.65),
                 ),
                 SizedBox(height: 8.h),
                 const _ContactSectionTitle('Call Us'),
                 SizedBox(height: 12.h),
                 Text(
                   '+20 1000 555 404 | +20 101 344 4957',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.sp,
-                    height: 1.5,
-                  ),
+                  style: AppTextStyles.bodyText.copyWith(height: 1.5),
                 ),
                 SizedBox(height: 8.h),
                 const _ContactSectionTitle('E-MAIL US'),
                 SizedBox(height: 8.h),
                 Text(
                   'contact@sketch.com',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14.sp,
-                    height: 1.5,
-                  ),
+                  style: AppTextStyles.bodyText.copyWith(height: 1.5),
                 ),
                 SizedBox(height: 8.h),
                 const _ContactSectionTitle('Follow Us'),
@@ -176,15 +153,11 @@ class _ContactSectionTitle extends StatelessWidget {
       shaderCallback: (bounds) => const LinearGradient(
         begin: Alignment.centerLeft,
         end: Alignment.centerRight,
-        colors: [Color(0xFFF6D7A6), Color(0xFFD3A14A)],
+        colors: [AppColors.softGold, AppColors.primaryGold],
       ).createShader(bounds),
       child: Text(
         title,
-        style: TextStyle(
-          color: Colors.white,
-          fontSize: 20.sp,
-          fontWeight: FontWeight.bold,
-        ),
+        style: AppTextStyles.contactTitle,
       ),
     );
   }

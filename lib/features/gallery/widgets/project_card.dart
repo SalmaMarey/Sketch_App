@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/features/projects/screens/project_details_screen.dart';
 
 class ProjectCard extends StatelessWidget {
@@ -32,15 +34,15 @@ class ProjectCard extends StatelessWidget {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                       colors: [
-                        Color(0x1AFFFFFF),
-                        Color(0xFFD3A14A),
-                        Color(0x1AFFFFFF),
+                        AppColors.white10,
+                        AppColors.primaryGold,
+                        AppColors.white10,
                       ],
                       stops: [0.0, 0.55, 1.0],
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFFD3A14A).withOpacity(0.18),
+                        color: AppColors.primaryGold.withOpacity(0.18),
                         blurRadius: 14.r,
                         spreadRadius: 0.5,
                       ),
@@ -68,17 +70,13 @@ class ProjectCard extends StatelessWidget {
                   bottom: 37.h,
                   child: ShaderMask(
                     shaderCallback: (bounds) => const LinearGradient(
-                      colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+                      colors: [AppColors.lightGold, AppColors.primaryGold],
                       stops: [0.34, 1.0],
                     ).createShader(bounds),
                     child: Text(
                       'CONTEMPORARY\n'
                       'LIVING SPACE',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25.sp,
-                        fontWeight: FontWeight.w400,
-                      ),
+                      style: AppTextStyles.projectHeroTitle,
                     ),
                   ),
                 ),

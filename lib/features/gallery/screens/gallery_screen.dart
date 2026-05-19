@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/features/gallery/widgets/drawer_bar.dart';
 import 'package:sketch_app/features/gallery/widgets/portfolio_button.dart';
 import 'package:sketch_app/features/gallery/widgets/projects_section.dart';
 
 class GalleryScreen extends StatefulWidget {
-  const GalleryScreen({super.key});
+  const GalleryScreen({super.key, required this.onSelectTab});
+
+  final ValueChanged<int> onSelectTab;
 
   @override
   State<GalleryScreen> createState() => _GalleryScreenState();
@@ -79,10 +83,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: const DrawerBar(),
-      backgroundColor: Colors.black,
+      endDrawer: DrawerBar(onSelectTab: widget.onSelectTab),
+      backgroundColor: AppColors.darkBackground,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: AppColors.darkBackground,
         leading: Image.asset('assets/images/logo.png', height: 59, width: 59),
         actions: [
           Builder(
@@ -90,7 +94,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
               return IconButton(
                 icon: const Icon(
                   Icons.menu,
-                  color: Color(0xFFD3A14A),
+                  color: AppColors.primaryGold,
                   size: 37,
                 ),
                 onPressed: () {
@@ -156,17 +160,12 @@ class _HeroSection extends StatelessWidget {
                     children: [
                       ShaderMask(
                         shaderCallback: (bounds) => const LinearGradient(
-                          colors: [Color(0xFFD3A14A), Color(0xFFFFEFD9)],
+                          colors: [AppColors.paleGold, AppColors.primaryGold],
                           stops: [0.11, 0.94],
                         ).createShader(bounds),
                         child: Text(
                           'SKETCH COMPANY',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 36.sp,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.2,
-                          ),
+                          style: AppTextStyles.heroTitle,
                         ),
                       ),
                       SizedBox(height: 10.h),
@@ -174,8 +173,7 @@ class _HeroSection extends StatelessWidget {
                         'Where ideas come to life\n'
                         'Explore our work and start your\n'
                         'creative journey today.',
-                        style: TextStyle(
-                          color: Colors.white,
+                        style: AppTextStyles.bodyText.copyWith(
                           fontSize: 20.sp,
                           height: 1.5,
                           fontWeight: FontWeight.w400,

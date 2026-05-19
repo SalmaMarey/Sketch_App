@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 
 class PortfolioButton extends StatelessWidget {
   const PortfolioButton({super.key, required this.onPressed});
@@ -20,22 +22,27 @@ class PortfolioButton extends StatelessWidget {
           child: DecoratedBox(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10.r),
-              border: Border.all(color: const Color(0x66D3A14A)),
+              border: Border.all(
+                color: AppColors.primaryGold.withOpacity(0.40),
+              ),
               gradient: const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0x805B4320), Color(0x66332214)],
+                colors: [
+                  AppColors.portfolioBrown,
+                  AppColors.portfolioBrownDark,
+                ],
               ),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x40000000),
+                  color: AppColors.shadowBlack25,
                   blurRadius: 14,
                   offset: Offset(0, 6),
                 ),
               ],
             ),
             child: Material(
-              color: Colors.transparent,
+              color: AppColors.transparent,
               child: InkWell(
                 onTap: onPressed,
                 borderRadius: BorderRadius.circular(12.r),
@@ -47,19 +54,11 @@ class PortfolioButton extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        'VIEW PORTFOLIO',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20.sp,
-                          fontWeight: FontWeight.w400,
-                          letterSpacing: 0.3,
-                        ),
-                      ),
-                      SizedBox(width: 10.w),
+                      Text('VIEW PORTFOLIO', style: AppTextStyles.buttonLabel),
+                      SizedBox(width: 5.w),
                       Icon(
                         Icons.chevron_right_rounded,
-                        color: Colors.white,
+                        color: AppColors.white,
                         size: 28.sp,
                       ),
                     ],

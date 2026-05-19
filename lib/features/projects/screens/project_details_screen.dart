@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
 import 'package:sketch_app/core/widgets/gold_back_button.dart';
 import 'package:sketch_app/features/projects/widgets/category_chip.dart';
-import 'package:sketch_app/features/projects/widgets/detail_image_card.dart';
+import 'package:sketch_app/core/widgets/detail_image_card.dart';
 
 class ProjectDetailsScreen extends StatelessWidget {
   const ProjectDetailsScreen({super.key, required this.title});
@@ -21,7 +23,7 @@ class ProjectDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.darkBackground,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 8.h),
@@ -37,18 +39,13 @@ class ProjectDetailsScreen extends StatelessWidget {
                     child: Center(
                       child: ShaderMask(
                         shaderCallback: (bounds) => const LinearGradient(
-                          colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+                          colors: [AppColors.lightGold, AppColors.primaryGold],
                           stops: [0.53, 1.0],
                         ).createShader(bounds),
 
                         child: Text(
                           title,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24.sp,
-                            fontWeight: FontWeight.w600,
-                            letterSpacing: 0.6,
-                          ),
+                          style: AppTextStyles.screenTitleSmall,
                         ),
                       ),
                     ),

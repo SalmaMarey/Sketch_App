@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sketch_app/core/routing/app_routes.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'dart:ui';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -92,8 +94,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                             colors: [
-                              const Color(0xFFD3A14A).withOpacity(0.30 * 0.78),
-                              const Color(0xFF5B5B5B).withOpacity(0.78),
+                              AppColors.primaryGold.withOpacity(0.30 * 0.78),
+                              AppColors.onboardingGray.withOpacity(0.78),
                             ],
                             stops: const [0.02, 1.0],
                           ),
@@ -109,11 +111,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                 startAngle: 0.0,
                                 endAngle: 3.14 * 2,
                                 colors: [
-                                  Color(0x8FD3A14A),
-                                  Color(0xFFFADDB3),
-                                  Color(0x8FD3A14A),
-                                  Color(0xFFFADDB3),
-                                  Color(0x8FD3A14A),
+                                  AppColors.gold56,
+                                  AppColors.lightGold,
+                                  AppColors.gold56,
+                                  AppColors.lightGold,
+                                  AppColors.gold56,
                                 ],
                                 stops: [0.0, 0.25, 0.5, 0.75, 1.0],
                               ).createShader(bounds),
@@ -121,7 +123,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(26.r),
                                   border: Border.all(
-                                    color: Colors.white,
+                                    color: AppColors.white,
                                     width: 1.5.w,
                                   ),
                                 ),
@@ -133,18 +135,16 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                               shaderCallback: (bounds) => const SweepGradient(
                                 center: Alignment.center,
                                 colors: [
-                                  Color(0xFFD3A14A),
-                                  Color(0xFFFADDB3),
-                                  Color(0xFFD3A14A),
+                                  AppColors.primaryGold,
+                                  AppColors.lightGold,
+                                  AppColors.primaryGold,
                                 ],
                               ).createShader(bounds),
                               child: Text(
                                 'GET STARTED',
-                                style: TextStyle(
+                                style: AppTextStyles.navLabel.copyWith(
                                   fontSize: 20.sp,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  letterSpacing: 1.2,
+                                  color: AppColors.white,
                                 ),
                               ),
                             ),

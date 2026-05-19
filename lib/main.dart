@@ -18,8 +18,9 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          initialRoute: AppRoutes.aboutUs,
+          initialRoute: AppRoutes.layout,
           routes: AppRoutes.routes,
+          theme: ThemeData(fontFamily: 'Poppins'),
         );
       },
     );

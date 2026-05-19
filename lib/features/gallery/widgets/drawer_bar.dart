@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sketch_app/core/routing/app_routes.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
 
 class DrawerBar extends StatelessWidget {
-  const DrawerBar({super.key});
+  const DrawerBar({super.key, required this.onSelectTab});
+
+  final ValueChanged<int> onSelectTab;
+
+  static const Duration _drawerCloseDuration = Duration(milliseconds: 220);
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.darkBackground,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.horizontal(left: Radius.circular(30.r)),
       ),
@@ -22,7 +28,11 @@ class DrawerBar extends StatelessWidget {
               child: Padding(
                 padding: EdgeInsets.only(top: 8.h, right: 16.w),
                 child: IconButton(
-                  icon: Icon(Icons.menu, color: Color(0xFFD3A14A), size: 37.sp),
+                  icon: Icon(
+                    Icons.menu,
+                    color: AppColors.primaryGold,
+                    size: 37.sp,
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
@@ -31,46 +41,69 @@ class DrawerBar extends StatelessWidget {
             ),
             SizedBox(height: 40.h),
 
-            _buildDrawerItem(context, 'GALLERY', AppRoutes.layout),
-            CustomDivider(),
-            _buildDrawerItem(context, 'ABOUT US', AppRoutes.aboutUs),
-            CustomDivider(),
-            _buildDrawerItem(context, 'PROJECTS', AppRoutes.projects),
-            CustomDivider(),
-            _buildDrawerItem(context, 'DESIGNS', AppRoutes.designs),
-            CustomDivider(),
-            // _buildDrawerItem(context, 'SERVICES', const ServicesScreen()),
-            // CustomDivider(),
-            // _buildDrawerItem(context, 'BOOKING', const BookingScreen()),
-            // CustomDivider(),
+            _buildTabDrawerItem(context, 'GALLERY', 0),
+            const CustomDivider(),
+            _buildRouteDrawerItem(context, 'ABOUT US', AppRoutes.aboutUs),
+            const CustomDivider(),
+            _buildRouteDrawerItem(context, 'PROJECTS', AppRoutes.projects),
+            const CustomDivider(),
+            _buildTabDrawerItem(context, 'DESIGNS', 2),
+            const CustomDivider(),
+            _buildTabDrawerItem(context, 'BOOKING', 1),
+            const CustomDivider(),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDrawerItem(BuildContext context, String title, String route) {
+  Widget _buildTabDrawerItem(BuildContext context, String title, int tabIndex) {
+    return _buildDrawerTile(
+      context: context,
+      title: title,
+      onTap: () async {
+        Navigator.of(context).pop();
+        await Future<void>.delayed(_drawerCloseDuration);
+        onSelectTab(tabIndex);
+      },
+    );
+  }
+
+  Widget _buildRouteDrawerItem(
+    BuildContext context,
+    String title,
+    String route,
+  ) {
+    return _buildDrawerTile(
+      context: context,
+      title: title,
+      onTap: () {
+        Navigator.of(context).pop();
+        Future<void>.delayed(_drawerCloseDuration, () {
+          Navigator.pushNamed(context, route);
+        });
+      },
+    );
+  }
+
+  Widget _buildDrawerTile({
+    required BuildContext context,
+    required String title,
+    required VoidCallback onTap,
+  }) {
     return ListTile(
       contentPadding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 0),
       title: ShaderMask(
         shaderCallback: (bounds) => const LinearGradient(
-          colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+          colors: [AppColors.lightGold, AppColors.primaryGold],
           stops: [0.53, 1.0],
         ).createShader(bounds),
         child: Text(
           title,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 20.sp,
-            fontWeight: FontWeight.w600,
-            letterSpacing: 0.6,
-          ),
+          style: AppTextStyles.drawerItem,
         ),
       ),
-      onTap: () {
-        Navigator.pop(context);
-        Navigator.pushNamed(context, route);
-      },
+      onTap: onTap,
     );
   }
 }

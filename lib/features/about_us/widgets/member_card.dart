@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/features/about_us/data/models/member_data.dart';
 
 class MemberCard extends StatelessWidget {
@@ -15,12 +17,12 @@ class MemberCard extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.centerLeft,
           end: Alignment.centerRight,
-          colors: [Color(0x26FFFFFF), Color(0xFFD3A14A), Color(0x26FFFFFF)],
+          colors: [AppColors.white15, AppColors.primaryGold, AppColors.white15],
           stops: [0.0, 0.5, 1.0],
         ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFD3A14A).withOpacity(0.26),
+            color: AppColors.primaryGold.withOpacity(0.26),
             blurRadius: 14.r,
             spreadRadius: -2,
             offset: Offset(0, 7.h),
@@ -31,9 +33,9 @@ class MemberCard extends StatelessWidget {
         margin: EdgeInsets.all(1.4.r),
         padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
         decoration: BoxDecoration(
-          color: Colors.black,
+          color: AppColors.darkBackground,
           borderRadius: BorderRadius.circular(17.r),
-          border: Border.all(color: Colors.white.withOpacity(0.16), width: 0.7),
+          border: Border.all(color: AppColors.white.withOpacity(0.16), width: 0.7),
         ),
         child: Row(
           children: [
@@ -46,7 +48,7 @@ class MemberCard extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
-                  colors: [Color(0xFFF6D7A6), Color(0xFFD3A14A)],
+                  colors: [AppColors.softGold, AppColors.primaryGold],
                 ),
               ),
               child: ClipRRect(
@@ -64,18 +66,13 @@ class MemberCard extends StatelessWidget {
                     shaderCallback: (bounds) => const LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
-                      colors: [Color(0xFFF6D7A6), Color(0xFFD3A14A)],
+                      colors: [AppColors.softGold, AppColors.primaryGold],
                     ).createShader(bounds),
                     child: Text(
                       member.name,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.4,
-                      ),
+                      style: AppTextStyles.memberName,
                     ),
                   ),
                   SizedBox(height: 12.h),
@@ -83,12 +80,7 @@ class MemberCard extends StatelessWidget {
                     member.role,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12.5.sp,
-                      fontWeight: FontWeight.w400,
-                      letterSpacing: 1.sp,
-                    ),
+                    style: AppTextStyles.memberRole,
                   ),
                 ],
               ),

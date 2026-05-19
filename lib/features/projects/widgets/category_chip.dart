@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart' show SizeExtension;
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 
 class CategoryChip extends StatelessWidget {
   const CategoryChip({
@@ -21,31 +23,28 @@ class CategoryChip extends StatelessWidget {
             ? const LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xFFF6D6A3), Color(0xFFD3A14A)],
+                colors: [AppColors.softGold, AppColors.primaryGold],
               )
             : const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Color(0xFF5B4A2A), Color(0xFF2A2A2A)],
+                colors: [AppColors.darkBrown, AppColors.chipBackground],
               ),
         border: Border.all(
-          color: isSelected ? const Color(0xFFF6D6A3) : const Color(0xFF7A6034),
+          color: isSelected ? AppColors.softGold : AppColors.bronzeBorder,
           width: 0.8,
         ),
       ),
       child: Text(
         label,
-        style: TextStyle(
+        style: AppTextStyles.chipText.copyWith(
           foreground: isSelected
               ? (Paint()
                   ..style = PaintingStyle.stroke
                   ..strokeWidth = 1.2
-                  ..color = Colors.white)
+                  ..color = AppColors.white)
               : null,
-
-          color: isSelected ? null : Colors.white,
-          fontSize: 20.sp,
-          fontWeight: FontWeight.w600,
+          color: isSelected ? null : AppColors.white,
         ),
       ),
     );

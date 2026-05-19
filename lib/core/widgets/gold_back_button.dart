@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
 
 class GoldBackButton extends StatelessWidget {
   const GoldBackButton({super.key, this.onPressed, this.size = 48});
 
   final VoidCallback? onPressed;
   final double size;
-
-  static const _gold = Color(0xFFD3A14A);
-  static const _lightGold = Color(0xFFFADDB3);
 
   @override
   Widget build(BuildContext context) {
@@ -23,12 +21,17 @@ class GoldBackButton extends StatelessWidget {
           gradient: const LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [_lightGold, Color(0xFF2B2B2B), _gold, Color(0xFF3C3C3C)],
+            colors: [
+              AppColors.lightGold,
+              AppColors.darkGray,
+              AppColors.primaryGold,
+              AppColors.mediumGray,
+            ],
             stops: [0, 0.5, 0.78, 1],
           ),
           boxShadow: [
             BoxShadow(
-              color: _gold.withOpacity(0.18),
+              color: AppColors.primaryGold.withOpacity(0.18),
               blurRadius: 12.r,
               spreadRadius: -4,
               offset: Offset(0, 5.h),
@@ -40,7 +43,7 @@ class GoldBackButton extends StatelessWidget {
           height: buttonSize,
           margin: EdgeInsets.all(1.2.r),
           decoration: BoxDecoration(
-            color: Colors.black,
+            color: AppColors.darkBackground,
             borderRadius: BorderRadius.circular(10.r),
           ),
           child: Center(
@@ -48,11 +51,11 @@ class GoldBackButton extends StatelessWidget {
               shaderCallback: (bounds) => const LinearGradient(
                 begin: Alignment.topRight,
                 end: Alignment.bottomLeft,
-                colors: [_lightGold, _gold],
+                colors: [AppColors.lightGold, AppColors.primaryGold],
               ).createShader(bounds),
               child: Icon(
                 Icons.chevron_left_rounded,
-                color: Colors.white,
+                color: AppColors.white,
                 size: 29.sp,
               ),
             ),

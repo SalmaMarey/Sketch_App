@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/features/projects/screens/project_details_screen.dart';
 
 class ProjectCardTheme extends StatelessWidget {
@@ -13,9 +15,7 @@ class ProjectCardTheme extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (_) => ProjectDetailsScreen(title: title),
-          ),
+          MaterialPageRoute(builder: (_) => ProjectDetailsScreen(title: title)),
         );
       },
       child: Container(
@@ -26,7 +26,7 @@ class ProjectCardTheme extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [const Color(0xFF0A0A0A), const Color(0xFF1A1A1A)],
+            colors: [AppColors.cardBackgroundDark, AppColors.cardBackground],
             stops: [0.0, .5],
           ),
           borderRadius: BorderRadius.circular(14.r),
@@ -40,11 +40,7 @@ class ProjectCardTheme extends StatelessWidget {
                 gradient: const LinearGradient(
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
-                  colors: [
-                    Color(0x1AFFFFFF),
-                    Color(0xFFD3A14A),
-                    Color(0x1AFFFFFF),
-                  ],
+                  colors: [AppColors.white10, AppColors.primaryGold, AppColors.white10],
                   stops: [0.0, 0.55, 1.0],
                 ),
               ),
@@ -64,16 +60,11 @@ class ProjectCardTheme extends StatelessWidget {
 
             ShaderMask(
               shaderCallback: (bounds) => const LinearGradient(
-                colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+                colors: [AppColors.lightGold, AppColors.primaryGold],
               ).createShader(bounds),
               child: Text(
                 title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.sp,
-                  fontWeight: FontWeight.w600,
-                  letterSpacing: 0.5,
-                ),
+                style: AppTextStyles.cardTitle,
               ),
             ),
           ],

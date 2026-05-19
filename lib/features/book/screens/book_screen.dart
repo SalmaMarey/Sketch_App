@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
 import 'package:sketch_app/features/book/widgets/confirm_button.dart';
 import 'package:sketch_app/features/book/widgets/text_field_box.dart';
@@ -10,7 +12,7 @@ class BookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: AppColors.darkBackground,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -21,30 +23,21 @@ class BookScreen extends StatelessWidget {
                 Center(
                   child: ShaderMask(
                     shaderCallback: (bounds) => const LinearGradient(
-                      colors: [Color(0xFFFADDB3), Color(0xFFD3A14A)],
+                      colors: [AppColors.lightGold, AppColors.primaryGold],
                       stops: [0.53, 1.0],
                     ).createShader(bounds),
 
                     child: Text(
                       'BOOK NOW',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32.sp,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.6,
-                      ),
+                      style: AppTextStyles.screenTitle,
                     ),
                   ),
                 ),
-                CustomDivider(),
+                const CustomDivider(),
                 SizedBox(height: 15.h),
                 Text(
                   "Fill in your details and we'll get back to you\nwithin 24 hours to discuss your project.",
-                  style: TextStyle(
-                    color: const Color(0xFF757575),
-                    fontSize: 16.sp,
-                    height: 1.5,
-                  ),
+                  style: AppTextStyles.bodyMuted,
                 ),
                 SizedBox(height: 30.h),
                 const TextFieldBox(
