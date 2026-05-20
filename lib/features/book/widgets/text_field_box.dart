@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sketch_app/core/theme/app_colors.dart';
@@ -23,10 +25,7 @@ class TextFieldBox extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: AppTextStyles.inputLabel,
-        ),
+        Text(title, style: AppTextStyles.inputLabel),
         SizedBox(height: 10.h),
         DecoratedBox(
           decoration: BoxDecoration(
@@ -54,15 +53,12 @@ class TextFieldBox extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [
-                AppColors.white15,
-                AppColors.gold50,
-                AppColors.white15,
-              ],
+              colors: [AppColors.white15, AppColors.gold50, AppColors.white15],
               stops: [0, 0.5, 1],
             ),
           ),
           child: Container(
+            height: maxLines > 1 ? 140.h : 51.h,
             margin: EdgeInsets.all(1.2.r),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.r),

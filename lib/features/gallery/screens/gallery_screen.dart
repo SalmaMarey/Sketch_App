@@ -174,7 +174,7 @@ class _HeroSection extends StatelessWidget {
                         'Explore our work and start your\n'
                         'creative journey today.',
                         style: AppTextStyles.bodyText.copyWith(
-                          fontSize: 20.sp,
+                          fontSize: 16.sp,
                           height: 1.5,
                           fontWeight: FontWeight.w400,
                         ),

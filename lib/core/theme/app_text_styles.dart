@@ -21,13 +21,13 @@ class AppTextStyles {
 
   static TextStyle get heroTitle => TextStyle(
     color: AppColors.white,
-    fontSize: 34.sp,
+    fontSize: 30.sp,
     fontWeight: FontWeight.bold,
     letterSpacing: 1.2,
   );
 
   static TextStyle get navLabel => TextStyle(
-    fontSize: 18.sp,
+    fontSize: 16.sp,
     fontWeight: FontWeight.bold,
     letterSpacing: 1.2,
     color: AppColors.navGray,
@@ -46,7 +46,7 @@ class AppTextStyles {
   static TextStyle get bodyTextSpacious => bodyText.copyWith(height: 1.5);
 
   static TextStyle get bodyMuted =>
-      TextStyle(color: AppColors.hintGray, fontSize: 16.sp, height: 1.5);
+      TextStyle(color: AppColors.hintGray, fontSize: 15.sp, height: 1.5);
 
   static TextStyle get sectionTitle => TextStyle(
     color: AppColors.white,
@@ -90,21 +90,21 @@ class AppTextStyles {
 
   static TextStyle get buttonLabel => TextStyle(
     color: AppColors.white,
-    fontSize: 20.sp,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w600,
     letterSpacing: 0.3,
   );
 
   static TextStyle get inputLabel => TextStyle(
     color: AppColors.white,
-    fontSize: 17.sp,
+    fontSize: 16.sp,
     fontWeight: FontWeight.w700,
     letterSpacing: 1.8,
   );
 
   static TextStyle get inputText => TextStyle(
     color: AppColors.white,
-    fontSize: 16.sp,
+    fontSize: 14.sp,
     fontWeight: FontWeight.w500,
   );
 
