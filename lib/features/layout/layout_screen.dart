@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sketch_app/core/di/injection.dart';
 import 'package:sketch_app/core/theme/app_colors.dart';
 import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
+import 'package:sketch_app/features/designs/presentation/cubit/cubit/designs_cubit.dart';
 import '../gallery/screens/gallery_screen.dart';
 import '../book/screens/book_screen.dart';
-import '../designs/screens/designs_screen.dart';
+import '../designs/presentation/screens/designs_screen.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({super.key});
@@ -20,7 +23,10 @@ class _LayoutScreenState extends State<LayoutScreen> {
   late final List<Widget> _screens = [
     GalleryScreen(onSelectTab: _navigateToTab),
     const BookScreen(),
-    const DesignsScreen(),
+    BlocProvider(
+      create: (_) => getIt<DesignsCubit>()..getCategories(),
+      child: const DesignsScreen(),
+    ),
   ];
 
   void _navigateToTab(int index) {
@@ -103,10 +109,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
                     style: AppTextStyles.navLabel.copyWith(color: null),
                   ),
                 )
-              : Text(
-                  label,
-                  style: AppTextStyles.navLabel,
-                ),
+              : Text(label, style: AppTextStyles.navLabel),
         ],
       ),
       label: '',
