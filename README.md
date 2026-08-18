@@ -1,17 +1,5 @@
 # sketch_app
 
-A new Flutter project.
+## 🎥 Demo Video
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[![Sketch App Demo](https://www.image2url.com/r2/default/images/1787091505586-8864a527-33b6-42fc-96e0-054caae4de59.png)](https://drive.google.com/file/d/1fxMUsbQlG-29YTKJzvW_nzH8Abg5lWEe/view?usp=drive_link)
