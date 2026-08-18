@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:sketch_app/core/theme/app_colors.dart';
 import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
@@ -146,11 +145,14 @@ class _ProjectDetailsScreenState extends State<ProjectDetailsScreen> {
                     }
 
                     if (state is ImagesSuccess) {
-                      return MasonryGridView.count(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10,
+                      return GridView.builder(
                         itemCount: state.images.length,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10.h,
+                          crossAxisSpacing: 10.w,
+                          childAspectRatio: 0.7,
+                        ),
                         itemBuilder: (context, index) {
                           final image = state.images[index];
 

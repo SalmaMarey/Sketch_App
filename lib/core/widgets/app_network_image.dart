@@ -27,6 +27,15 @@ class AppNetworkImage extends StatelessWidget {
         loadingBuilder: (context, child, loadingProgress) {
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 180),
+            layoutBuilder: (currentChild, previousChildren) {
+              return Stack(
+                fit: StackFit.expand,
+                children: <Widget>[
+                  ...previousChildren,
+                  if (currentChild != null) currentChild,
+                ],
+              );
+            },
             child: loadingProgress == null
                 ? child
                 : const _ImagePlaceholder(key: ValueKey('loading')),
