@@ -6,7 +6,7 @@ import 'package:sketch_app/features/designs/presentation/cubit/cubit/designs_cub
 import 'package:sketch_app/features/designs/presentation/screens/designs_screen.dart';
 import 'package:sketch_app/features/layout/layout_screen.dart';
 import 'package:sketch_app/features/onboarding/cubit/on_boarding_cubit.dart';
-import 'package:sketch_app/features/projects/screens/projects_screen.dart';
+import 'package:sketch_app/features/projects/presentation/screens/projects_screen.dart';
 import '../../features/splash/splash_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/book/screens/book_screen.dart';

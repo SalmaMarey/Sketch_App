@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sketch_app/core/di/injection.dart';
 import 'core/routing/app_routes.dart';
+import 'firebase_options.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-// flutter pub run build_runner build --delete-conflicting-outputs
-
+/// flutter pub run build_runner build --delete-conflicting-outputs
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await configureDependencies();
 
   runApp(const MyApp());

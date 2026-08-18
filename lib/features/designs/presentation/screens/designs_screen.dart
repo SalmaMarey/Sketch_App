@@ -18,14 +18,6 @@ class DesignsScreen extends StatefulWidget {
 }
 
 class _DesignsScreenState extends State<DesignsScreen> {
-  // static const List<String> _tabs = [
-  //   'INTERIOR',
-  //   'EXTERIOR',
-  //   'BATHROOM',
-  //   'BEDROOM',
-  //   'KITCHEN',
-  // ];
-
   int _selectedTabIndex = 0;
 
   void _selectTab(int index) {
@@ -36,25 +28,6 @@ class _DesignsScreenState extends State<DesignsScreen> {
     setState(() {
       _selectedTabIndex = index;
     });
-  }
-
-  void _openDesignDetails() {
-    final state = context.read<DesignsCubit>().state;
-    final title =
-        state is DesignsSuccess && state.categories.isNotEmpty
-            ? state
-                .categories[_selectedTabIndex >= state.categories.length
-                    ? 0
-                    : _selectedTabIndex]
-                .name
-                .toUpperCase()
-            : 'DESIGNS';
-
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (_) => DesignDetailsScreen(title: title),
-      ),
-    );
   }
 
   @override
@@ -92,73 +65,129 @@ class _DesignsScreenState extends State<DesignsScreen> {
                         children: [
                           BlocBuilder<DesignsCubit, DesignsState>(
                             builder: (context, state) {
-                              if (state is DesignsLoading) {
+                              if (state is DesignsLoading ||
+                                  state is ProjectsLoading) {
                                 return const Center(
                                   child: CircularProgressIndicator(),
                                 );
                               }
 
-                              if (state is DesignsError) {
+                              if (state is DesignsError ||
+                                  state is ProjectsError) {
+                                final message = state is DesignsError
+                                    ? state.message
+                                    : (state as ProjectsError).message;
+
                                 return Padding(
                                   padding: EdgeInsets.symmetric(vertical: 12.h),
                                   child: Text(
-                                    state.message,
+                                    message,
                                     style: AppTextStyles.bodyText,
                                   ),
                                 );
                               }
 
-                              if (state is! DesignsSuccess ||
-                                  state.categories.isEmpty) {
+                              if (state is! ProjectsSuccess) {
                                 return const SizedBox.shrink();
                               }
 
                               final categories = state.categories;
+                              final images = state.images;
                               final selectedIndex =
-                                  _selectedTabIndex >= categories.length
-                                      ? 0
-                                      : _selectedTabIndex;
+                                  categories.isEmpty ||
+                                      _selectedTabIndex >= categories.length
+                                  ? 0
+                                  : _selectedTabIndex;
 
-                              return SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: List.generate(categories.length, (
-                                    index,
-                                  ) {
-                                    final category = categories[index];
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  if (categories.isNotEmpty)
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: List.generate(
+                                          categories.length,
+                                          (index) {
+                                            final category = categories[index];
 
-                                    return Padding(
-                                      padding: EdgeInsets.only(right: 8.w),
-                                      child: GestureDetector(
-                                        onTap: () => _selectTab(index),
-                                        child: DesignTabChip(
-                                          label: category.name.toUpperCase(),
-                                          isSelected: selectedIndex == index,
+                                            return Padding(
+                                              padding: EdgeInsets.only(
+                                                right: 8.w,
+                                              ),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  _selectTab(index);
+                                                  context
+                                                      .read<DesignsCubit>()
+                                                      .getProjects(
+                                                        categoryId: category.id,
+                                                      );
+                                                },
+                                                child: DesignTabChip(
+                                                  label: category.name
+                                                      .toUpperCase(),
+                                                  isSelected:
+                                                      selectedIndex == index,
+                                                ),
+                                              ),
+                                            );
+                                          },
                                         ),
                                       ),
-                                    );
-                                  }),
-                                ),
+                                    ),
+                                  SizedBox(height: 14.h),
+                                  if (images.isEmpty)
+                                    Padding(
+                                      padding: EdgeInsets.symmetric(
+                                        vertical: 20.h,
+                                      ),
+                                      child: Text(
+                                        'No projects found.',
+                                        style: AppTextStyles.bodyText,
+                                      ),
+                                    )
+                                  else
+                                    Column(
+                                    children: List.generate(images.length, (
+                                        index,
+                                      ) {
+                                        return Padding(
+                                          padding: EdgeInsets.only(
+                                            bottom: 10.h,
+                                          ),
+                                          child: DesignShowcaseCard(
+                                            height: 200,
+                                            image: images[index].imageUrl,
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      BlocProvider.value(
+                                                        value: context
+                                                            .read<
+                                                              DesignsCubit
+                                                            >(),
+                                                        child:
+                                                            DesignDetailsScreen(
+                                                              title:
+                                                                  images[index]
+                                                                      .projectTitle,
+                                                              projectId:
+                                                                  images[index]
+                                                                      .projectId,
+                                                            ),
+                                                      ),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                        );
+                                      }),
+                                    ),
+                                ],
                               );
                             },
-                          ),
-                          SizedBox(height: 14.h),
-                          DesignShowcaseCard(
-                            height: 172,
-                            image: 'assets/images/home_1.png',
-                            onTap: _openDesignDetails,
-                          ),
-                          SizedBox(height: 10.h),
-                          DesignShowcaseCard(
-                            height: 205,
-                            image: 'assets/images/home_1.png',
-                            onTap: _openDesignDetails,
-                          ),
-                          SizedBox(height: 10.h),
-                          DesignShowcaseCard(
-                            height: 182,
-                            image: 'assets/images/home_1.png',
-                            onTap: _openDesignDetails,
                           ),
                         ],
                       ),

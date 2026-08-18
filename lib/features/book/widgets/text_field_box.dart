@@ -10,12 +10,20 @@ class TextFieldBox extends StatelessWidget {
   final String hintText;
   final int maxLines;
   final TextInputType keyboardType;
+  final TextEditingController? controller;
+  final String? Function(String?)? validator;
+  final bool readOnly;
+  final VoidCallback? onTap;
   const TextFieldBox({
     super.key,
     required this.title,
     required this.hintText,
     this.maxLines = 1,
     this.keyboardType = TextInputType.text,
+    this.controller,
+    this.validator,
+    this.readOnly = false,
+    this.onTap,
   });
 
   @override
@@ -68,9 +76,13 @@ class TextFieldBox extends StatelessWidget {
                 colors: [AppColors.richBlack, AppColors.deepBlack],
               ),
             ),
-            child: TextField(
+            child: TextFormField(
+              controller: controller,
               maxLines: maxLines,
               keyboardType: keyboardType,
+              validator: validator,
+              readOnly: readOnly,
+              onTap: onTap,
               style: AppTextStyles.inputText,
               decoration: InputDecoration(
                 hintText: hintText,

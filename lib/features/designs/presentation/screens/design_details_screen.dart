@@ -1,24 +1,49 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sketch_app/core/theme/app_colors.dart';
 import 'package:sketch_app/core/theme/app_text_styles.dart';
 import 'package:sketch_app/core/widgets/custom_divider.dart';
 import 'package:sketch_app/core/widgets/gold_back_button.dart';
-import 'package:sketch_app/core/widgets/detail_image_card.dart';
+import 'package:sketch_app/core/widgets/app_network_image.dart';
+import 'package:sketch_app/features/designs/presentation/cubit/cubit/designs_cubit.dart';
+import 'package:sketch_app/features/designs/presentation/cubit/cubit/designs_state.dart';
 
-class DesignDetailsScreen extends StatelessWidget {
+class DesignDetailsScreen extends StatefulWidget {
+  final String projectId;
   const DesignDetailsScreen({
     super.key,
     required this.title,
     this.subtitle = 'Apartment',
+    required this.projectId,
   });
 
   final String title;
   final String subtitle;
 
   @override
+  State<DesignDetailsScreen> createState() => _DesignDetailsScreenState();
+}
+
+class _DesignDetailsScreenState extends State<DesignDetailsScreen> {
+  Future<void> _restoreProjects() =>
+      context.read<DesignsCubit>().restoreProjects();
+
+  @override
+  void initState() {
+    context.read<DesignsCubit>().getMedia(projectId: widget.projectId);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        await _restoreProjects();
+        return true;
+      },
+      child: Scaffold(
       backgroundColor: AppColors.darkBackground,
       body: SafeArea(
         child: SingleChildScrollView(
@@ -37,18 +62,23 @@ class DesignDetailsScreen extends StatelessWidget {
                       children: [
                         ShaderMask(
                           shaderCallback: (bounds) => const LinearGradient(
-                            colors: [AppColors.lightGold, AppColors.primaryGold],
+                            colors: [
+                              AppColors.lightGold,
+                              AppColors.primaryGold,
+                            ],
                             stops: [0.53, 1.0],
                           ).createShader(bounds),
                           child: Text(
-                            title,
+                            widget.title,
                             style: AppTextStyles.screenTitleSmall,
                           ),
                         ),
                         SizedBox(height: 2.h),
                         Text(
-                          subtitle,
-                          style: AppTextStyles.bodyText.copyWith(fontSize: 12.sp),
+                          widget.subtitle,
+                          style: AppTextStyles.bodyText.copyWith(
+                            fontSize: 12.sp,
+                          ),
                         ),
                       ],
                     ),
@@ -65,59 +95,84 @@ class DesignDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: Column(
                       children: [
-                        const DetailImageCard(
-                          height: 132,
-                          image: 'assets/images/home_1.png',
-                        ),
-                        SizedBox(height: 10.h),
-                        const DetailImageCard(
-                          height: 178,
-                          image: 'assets/images/home_1.png',
-                        ),
-                        SizedBox(height: 10.h),
-                        const DetailImageCard(
-                          height: 162,
-                          image: 'assets/images/home_1.png',
-                        ),
-                        SizedBox(height: 10.h),
-                        const DetailImageCard(
-                          height: 188,
-                          image: 'assets/images/home_1.png',
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(width: 10.w),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        const DetailImageCard(
-                          height: 218,
-                          image: 'assets/images/home_1.png',
-                        ),
-                        SizedBox(height: 10.h),
-                        const DetailImageCard(
-                          height: 178,
-                          image: 'assets/images/home_1.png',
-                        ),
-                        SizedBox(height: 10.h),
-                        const DetailImageCard(
-                          height: 180,
-                          image: 'assets/images/home_1.png',
-                        ),
-                        SizedBox(height: 10.h),
-                        const DetailImageCard(
-                          height: 132,
-                          image: 'assets/images/home_1.png',
+                        BlocBuilder<DesignsCubit, DesignsState>(
+                          builder: (context, state) {
+                            if (state is MediaLoading) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+
+                            if (state is MediaError) {
+                              return Center(child: Text(state.message));
+                            }
+
+                            if (state is! MediaSuccess) {
+                              return const SizedBox();
+                            }
+
+                            final media = state.media;
+
+                            return GridView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: media.length,
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    crossAxisSpacing: 10.w,
+                                    mainAxisSpacing: 10.h,
+                                    childAspectRatio: .7,
+                                  ),
+                              itemBuilder: (context, index) {
+                                final image = media[index];
+
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  child: AppNetworkImage(
+                                    imageUrl: image.fullImageUrl,
+                                    fit: BoxFit.cover,
+                                  ),
+                                );
+                              },
+                            );
+                          },
                         ),
                       ],
                     ),
                   ),
+                  // SizedBox(width: 10.w),
+                  // Expanded(
+                  //   child: Column(
+                  //     children: [
+                  //       const DetailImageCard(
+                  //         height: 218,
+                  //         image: 'assets/images/home_1.png',
+                  //       ),
+                  //       SizedBox(height: 10.h),
+                  //       const DetailImageCard(
+                  //         height: 178,
+                  //         image: 'assets/images/home_1.png',
+                  //       ),
+                  //       SizedBox(height: 10.h),
+                  //       const DetailImageCard(
+                  //         height: 180,
+                  //         image: 'assets/images/home_1.png',
+                  //       ),
+                  //       SizedBox(height: 10.h),
+                  //       const DetailImageCard(
+                  //         height: 132,
+                  //         image: 'assets/images/home_1.png',
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ],
           ),
         ),
+      ),
       ),
     );
   }

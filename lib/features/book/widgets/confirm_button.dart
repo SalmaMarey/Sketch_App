@@ -4,7 +4,10 @@ import 'package:sketch_app/core/theme/app_colors.dart';
 import 'package:sketch_app/core/theme/app_text_styles.dart';
 
 class ConfirmButton extends StatelessWidget {
-  const ConfirmButton({super.key});
+  const ConfirmButton({super.key, required this.onPressed, this.isLoading = false});
+
+  final VoidCallback? onPressed;
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,7 @@ class ConfirmButton extends StatelessWidget {
 
     return Center(
       child: GestureDetector(
-        onTap: () => {},
+        onTap: isLoading ? null : onPressed,
         child: DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: borderRadius,
@@ -54,16 +57,22 @@ class ConfirmButton extends StatelessWidget {
               ),
             ),
             child: Center(
-              child: ShaderMask(
-                shaderCallback: (bounds) => const LinearGradient(
-                  colors: [AppColors.lightGold, AppColors.primaryGold],
-                  stops: [0.15, 1],
-                ).createShader(bounds),
-                child: Text(
-                  'CONFIRM',
-                  style: AppTextStyles.buttonText,
-                ),
-              ),
+              child: isLoading
+                  ? const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                        color: AppColors.primaryGold,
+                      ),
+                    )
+                  : ShaderMask(
+                      shaderCallback: (bounds) => const LinearGradient(
+                        colors: [AppColors.lightGold, AppColors.primaryGold],
+                        stops: [0.15, 1],
+                      ).createShader(bounds),
+                      child: Text('CONFIRM', style: AppTextStyles.buttonText),
+                    ),
             ),
           ),
         ),

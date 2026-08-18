@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sketch_app/core/theme/app_colors.dart';
+import 'package:sketch_app/core/widgets/app_network_image.dart';
 
 class DesignShowcaseCard extends StatelessWidget {
   const DesignShowcaseCard({
@@ -36,8 +37,8 @@ class DesignShowcaseCard extends StatelessWidget {
             decoration: BoxDecoration(borderRadius: BorderRadius.circular(10.r)),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.r),
-              child: Image.asset(
-                image,
+              child: AppNetworkImage(
+                imageUrl: image,
                 height: 212.h,
                 width: 324.w,
                 fit: BoxFit.cover,
