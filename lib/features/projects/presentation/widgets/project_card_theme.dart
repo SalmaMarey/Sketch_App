@@ -50,30 +50,31 @@ class ProjectCardTheme extends StatelessWidget {
         ),
         child: Column(
           children: [
-            Container(
-              padding: EdgeInsets.all(1.r),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10.r),
-                gradient: const LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    AppColors.white10,
-                    AppColors.primaryGold,
-                    AppColors.white10,
-                  ],
-                  stops: [0.0, 0.55, 1.0],
+            Expanded(
+              child: Container(
+                padding: EdgeInsets.all(1.r),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.r),
+                  gradient: const LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [
+                      AppColors.white10,
+                      AppColors.primaryGold,
+                      AppColors.white10,
+                    ],
+                    stops: [0.0, 0.55, 1.0],
+                  ),
                 ),
-              ),
-
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(9.r),
-              child: AppNetworkImage(
-                imageUrl: image,
-                height: 172.h,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(9.r),
+                  child: AppNetworkImage(
+                    imageUrl: image,
+                    height: double.infinity,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
 
@@ -83,7 +84,7 @@ class ProjectCardTheme extends StatelessWidget {
               shaderCallback: (bounds) => const LinearGradient(
                 colors: [AppColors.lightGold, AppColors.primaryGold],
               ).createShader(bounds),
-              child: Text(title, style: AppTextStyles.cardTitle),
+              child: Text(title, style: AppTextStyles.cardTitle, textAlign: TextAlign.center),
             ),
           ],
         ),
